@@ -66,7 +66,7 @@ with col2:
     st.image(
         "course_recommendor_image.png",
         width=800
-    ))
+    )
 
 st.markdown("---")
 
