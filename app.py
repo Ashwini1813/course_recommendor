@@ -60,6 +60,10 @@ st.markdown("""
 
 st.markdown("---")
 
+st.image("course_recommender_image.jpg", use_container_width=True)
+
+st.markdown("---")
+
 # Load model
 recommender = CourseRecommender("coursera_dataset.csv")
 
