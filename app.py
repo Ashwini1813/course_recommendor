@@ -50,10 +50,10 @@ st.markdown("""
     margin-bottom:25px;
 '>
     <div style='font-size:40px; font-weight:800; color:#0f172a;'>
-        🎯 AI Course Recommender
+        📚 Coursera Course Recommender
     </div>
     <div style='color:#64748b; font-size:15px; margin-top:10px; letter-spacing:1px;'>
-        ML-Powered Personalized Learning Path
+        ML-Powered Learning Path
     </div>
 </div>
 """, unsafe_allow_html=True)
