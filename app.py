@@ -60,7 +60,7 @@ st.markdown("""
 
 st.markdown("---")
 
-st.image("course_recommender_image.jpg", use_container_width=True)
+st.image("course_recommendor_image.png", use_container_width=True)
 
 st.markdown("---")
 
