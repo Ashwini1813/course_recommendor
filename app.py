@@ -61,7 +61,7 @@ st.markdown("""
 st.markdown("---")
 
 # Load model
-recommender = CourseRecommender("coursera_course_dataset_v3.csv")
+recommender = CourseRecommender("coursera_dataset.csv")
 
 # Input
 col1, col2 = st.columns(2)
