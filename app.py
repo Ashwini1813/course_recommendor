@@ -60,7 +60,13 @@ st.markdown("""
 
 st.markdown("---")
 
-st.image("course_recommendor_image.png", use_container_width=True)
+col1, col2, col3 = st.columns([1,4,1])
+
+with col2:
+    st.image(
+        "course_recommendor_image.png",
+        width=800
+    ))
 
 st.markdown("---")
 
