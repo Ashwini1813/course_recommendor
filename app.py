@@ -6,67 +6,76 @@ st.set_page_config(
     layout="wide"
 )
 
-# Professional Styling
+# =========================
+# CUSTOM CSS
+# =========================
 st.markdown("""
 <style>
-    .stApp {
-        background: #f8fafc;
-    }
 
-    .stTextInput label,
-    .stSelectbox label,
-    .stMultiSelect label {
-        color: #1e293b !important;
-        font-size: 16px !important;
-        font-weight: 600;
-    }
+[data-testid="stAppViewContainer"]{
+    background: linear-gradient(
+        135deg,
+        #0f172a 0%,
+        #1e293b 50%,
+        #334155 100%
+    );
+}
 
-    .stTextInput input,
-    .stSelectbox div[data-baseweb="select"] {
-        border-radius: 10px !important;
-        border: 1px solid #cbd5e1 !important;
-        background-color: white !important;
-    }
+[data-testid="stHeader"]{
+    background: transparent;
+}
 
-    .stButton > button {
-        background: #2563eb;
-        color: white;
-        border: none;
-        padding: 12px 30px;
-        border-radius: 10px;
-        font-size: 16px;
-        font-weight: 600;
-        width: 100%;
-        transition: 0.3s;
-    }
+h1,h2,h3{
+    color:white !important;
+}
 
-    .stButton > button:hover {
-        background: #1d4ed8;
-    }
+.stTextInput label,
+.stSelectbox label{
+    color:white !important;
+    font-weight:600;
+    font-size:16px !important;
+}
 
-    h1, h2, h3 {
-        color: #0f172a !important;
-    }
+.stButton > button{
+    background: linear-gradient(
+        90deg,
+        #2563eb,
+        #06b6d4
+    );
+    color:white;
+    border:none;
+    border-radius:12px;
+    padding:12px;
+    font-weight:600;
+    width:100%;
+}
 
-    hr {
-        border: 1px solid #e2e8f0;
-    }
+.stButton > button:hover{
+    transform:scale(1.02);
+}
+
+hr{
+    border:1px solid rgba(255,255,255,0.15);
+}
+
 </style>
 """, unsafe_allow_html=True)
 
-# Title Section
+# =========================
+# TITLE SECTION
+# =========================
 st.markdown("""
 <div style='
     text-align:center;
     padding:25px;
-    background:white;
-    border-radius:15px;
-    box-shadow:0 4px 15px rgba(0,0,0,0.08);
-    margin-bottom:20px;
+    background:rgba(255,255,255,0.95);
+    border-radius:18px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.2);
+    margin-bottom:25px;
 '>
     <div style='
-        font-size:38px;
-        font-weight:700;
+        font-size:40px;
+        font-weight:800;
         color:#0f172a;
     '>
         🎯 AI Course Recommender
@@ -78,21 +87,26 @@ st.markdown("""
         margin-top:10px;
         letter-spacing:1px;
     '>
-        Personalized Course Recommendations Using Machine Learning
+        ML-Powered Personalized Learning Path
     </div>
 </div>
 """, unsafe_allow_html=True)
 
 st.markdown("---")
 
-# Load Recommender
+# =========================
+# LOAD MODEL
+# =========================
 recommender = CourseRecommender("coursera_dataset.csv")
 
-# Input Section
+# =========================
+# INPUT SECTION
+# =========================
 col1, col2 = st.columns(2)
 
 with col1:
     st.markdown("### 💡 Your Current Skills")
+
     user_skills_input = st.text_input(
         "Enter your skills (comma separated)",
         placeholder="e.g. python, sql, machine learning"
@@ -100,6 +114,7 @@ with col1:
 
 with col2:
     st.markdown("### 📊 Your Level")
+
     user_level = st.selectbox(
         "Select your current level",
         ["Beginner", "Intermediate", "Advanced"]
@@ -114,11 +129,14 @@ with col2:
 
 st.markdown("---")
 
-# Recommend Button
+# =========================
+# RECOMMEND BUTTON
+# =========================
 if st.button("🚀 Get My Recommendations"):
 
     if not user_skills_input:
         st.warning("⚠️ Please enter at least one skill!")
+
     else:
 
         user_skills = [
@@ -127,6 +145,7 @@ if st.button("🚀 Get My Recommendations"):
         ]
 
         with st.spinner("Finding best courses for you..."):
+
             recommendations = recommender.recommend(
                 user_skills,
                 user_level,
@@ -134,84 +153,94 @@ if st.button("🚀 Get My Recommendations"):
             )
 
         if recommendations.empty:
+
             st.error(
                 "No courses found! Try different skills or level."
             )
 
         else:
+
             st.markdown(
-                f"### 🎓 Top {top_n} Recommended Courses for You"
+                f"<h3>🎓 Top {top_n} Recommended Courses for You</h3>",
+                unsafe_allow_html=True
             )
 
             for idx, row in recommendations.iterrows():
 
-                st.markdown(f"""
-                <div style='
-                    background:white;
-                    padding:20px;
-                    border-radius:12px;
-                    margin-bottom:15px;
-                    border:1px solid #e2e8f0;
-                    box-shadow:0 2px 8px rgba(0,0,0,0.05);
-                '>
+                st.markdown(
+                    f"""
+                    <div style="
+                        background: rgba(255,255,255,0.97);
+                        padding:20px;
+                        border-radius:15px;
+                        margin-bottom:18px;
+                        border-left:5px solid #2563eb;
+                        box-shadow:0 8px 20px rgba(0,0,0,0.15);
+                    ">
 
-                    <div style='
-                        font-size:20px;
-                        font-weight:700;
-                        color:#0f172a;
-                    '>
-                        📚 {row['Title']}
+                        <div style="
+                            font-size:20px;
+                            font-weight:700;
+                            color:#0f172a;
+                        ">
+                            📚 {row['Title']}
+                        </div>
+
+                        <div style="
+                            color:#64748b;
+                            margin-top:8px;
+                            font-size:14px;
+                        ">
+                            🏛️ {row['Organization']} &nbsp;|&nbsp;
+                            📊 {row['Difficulty']} &nbsp;|&nbsp;
+                            ⭐ {row['Ratings']} &nbsp;|&nbsp;
+                            ⏱️ {row['Duration']}
+                        </div>
+
+                        <div style="
+                            margin-top:12px;
+                            display:inline-block;
+                            background:#dcfce7;
+                            color:#15803d;
+                            padding:6px 12px;
+                            border-radius:20px;
+                            font-size:13px;
+                            font-weight:700;
+                        ">
+                            🎯 Match Score:
+                            {row['similarity_score']:.2f}
+                        </div>
+
+                        <div style="
+                            color:#475569;
+                            margin-top:12px;
+                            font-size:13px;
+                        ">
+                            🔧 Skills:
+                            {row['Skills'][:100]}...
+                        </div>
+
                     </div>
-
-                    <div style='
-                        color:#64748b;
-                        margin-top:8px;
-                        font-size:14px;
-                    '>
-                        🏛️ {row['Organization']} |
-                        📊 {row['Difficulty']} |
-                        ⭐ {row['Ratings']} |
-                        ⏱️ {row['Duration']}
-                    </div>
-
-                    <div style='
-                        margin-top:10px;
-                        display:inline-block;
-                        background:#dbeafe;
-                        color:#1d4ed8;
-                        padding:6px 12px;
-                        border-radius:20px;
-                        font-size:13px;
-                        font-weight:600;
-                    '>
-                        🎯 Match Score:
-                        {row['similarity_score']:.2f}
-                    </div>
-
-                    <div style='
-                        color:#475569;
-                        margin-top:12px;
-                        font-size:13px;
-                    '>
-                        🔧 Skills:
-                        {row['Skills'][:100]}...
-                    </div>
-
-                </div>
-                """, unsafe_allow_html=True)
+                    """,
+                    unsafe_allow_html=True
+                )
 
 st.markdown("---")
 
-# Footer
+# =========================
+# FOOTER
+# =========================
 st.markdown("""
-<div style='
+<div style="
     text-align:center;
-    color:#64748b;
+    color:#e2e8f0;
     font-size:14px;
     padding:15px;
-'>
+">
     ⚡ Developed by
-    <b style='color:#2563eb;'>Ashwini Parmar</b>
+    <span style="color:#38bdf8;font-weight:bold;">
+        Ashwini Parmar
+    </span>
     • Data Science Portfolio Project
 </div>
 """, unsafe_allow_html=True)
